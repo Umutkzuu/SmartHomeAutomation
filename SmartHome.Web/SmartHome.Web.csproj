@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SmartHome.Business\SmartHome.Business.csproj" />
     <ProjectReference Include="..\SmartHome.Common\SmartHome.Common.csproj" />
+    <ProjectReference Include="..\SmartHome.Data\SmartHome.Data.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

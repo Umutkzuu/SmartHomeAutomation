@@ -1,29 +1,37 @@
+using Microsoft.EntityFrameworkCore;
+using SmartHome.Data.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// 1. Veritabanı Bağlantısını (Connection String) Al
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// 2. DbContext'i ve MySQL Sürücüsünü Kaydet
+builder.Services.AddDbContext<SmartHomeDbContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+// 3. MVC (Model-View-Controller) Servislerini Ekle
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// 4. HTTP İstek Kanalı (Middleware Pipeline) Yapılandırması
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles(); 
+
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
-
+// 5. Varsayılan Rota Tanımı
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
-
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

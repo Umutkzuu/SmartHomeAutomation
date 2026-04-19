@@ -1,24 +1,31 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using SmartHome.Web.Models;
+using Microsoft.EntityFrameworkCore;
+using SmartHome.Data.Context;
 
 namespace SmartHome.Web.Controllers;
 
 public class HomeController : Controller
 {
-    public IActionResult Index()
+    private readonly SmartHomeDbContext _context;
+
+    
+    public HomeController(SmartHomeDbContext context)
     {
-        return View();
+        _context = context;
+    }
+
+    public async Task<IActionResult> Index()
+    {
+        
+        var devices = await _context.Devices.ToListAsync();
+        
+        
+        return View(devices);
     }
 
     public IActionResult Privacy()
     {
         return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

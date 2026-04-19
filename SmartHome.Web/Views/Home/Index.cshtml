@@ -1,8 +1,67 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<SmartHome.Data.Entities.Device>
+
+@{
+    ViewData["Title"] = "Ana Sayfa";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-primary">Akıllı Ev Kontrol Paneli</h1>
+    <p class="lead">Sistemdeki tüm cihazların anlık durumu aşağıdadır.</p>
+</div>
+
+<div class="container">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Cihaz Adı</th>
+                        <th>Durum</th>
+                        <th>Değer</th>
+                        <th>Bağlantı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><strong>#@item.DeviceId</strong></td>
+                            <td>@item.DeviceName</td>
+                            <td>
+                                @if (item.IsActive == true)
+                                {
+                                    <span class="badge bg-success px-3 py-2">AÇIK</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger px-3 py-2">KAPALI</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.CurrentValue != null)
+                                {
+                                    <span class="fw-bold">@item.CurrentValue</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.IsOnline == true)
+                                {
+                                    <span class="text-success fw-bold"><i class="bi bi-wifi"></i> Online</span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger fw-bold"><i class="bi bi-wifi-off"></i> Offline</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

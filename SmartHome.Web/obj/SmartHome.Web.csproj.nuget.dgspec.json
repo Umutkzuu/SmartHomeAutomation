@@ -720,6 +720,18 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -1041,6 +1053,9 @@
               },
               "D:\\Umut\\Yazılım\\SmartHomeAutomation\\SmartHome.Common\\SmartHome.Common.csproj": {
                 "projectPath": "D:\\Umut\\Yazılım\\SmartHomeAutomation\\SmartHome.Common\\SmartHome.Common.csproj"
+              },
+              "D:\\Umut\\Yazılım\\SmartHomeAutomation\\SmartHome.Data\\SmartHome.Data.csproj": {
+                "projectPath": "D:\\Umut\\Yazılım\\SmartHomeAutomation\\SmartHome.Data\\SmartHome.Data.csproj"
               }
             }
           }
