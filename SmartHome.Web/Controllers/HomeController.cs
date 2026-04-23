@@ -39,21 +39,20 @@ public class HomeController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    
     [HttpPost]
     public async Task<IActionResult> BulkRoomAction(int roomId, bool status)
     {
         if (status == false)
         {
-            
+            // Kapatma Prosedürü
             await _context.Database.ExecuteSqlRawAsync("CALL sp_TurnOffRoomDevices({0})", roomId);
         }
         else
         {
-            
-            await _context.Database.ExecuteSqlRawAsync("UPDATE devices SET IsActive = TRUE WHERE RoomID = {0}", roomId);
+            // YENİ: Açma Prosedürü
+            await _context.Database.ExecuteSqlRawAsync("CALL sp_TurnOnRoomDevices({0})", roomId);
         }
-
+        
         return RedirectToAction(nameof(Index));
     }
 

@@ -56,3 +56,14 @@ CREATE INDEX idx_DeviceName ON DEVICES(DeviceName);
 
 
 CREATE INDEX idx_LogTimestamp ON DEVICE_LOGS(Timestamp);
+
+DELIMITER //
+
+CREATE PROCEDURE sp_TurnOnRoomDevices(IN p_RoomID INT)
+BEGIN
+    UPDATE DEVICES
+    SET IsActive = TRUE
+    WHERE RoomID = p_RoomID AND IsOnline = TRUE;
+END //
+
+DELIMITER ;
