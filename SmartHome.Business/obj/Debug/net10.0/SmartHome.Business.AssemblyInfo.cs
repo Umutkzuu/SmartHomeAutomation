@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartHome.Business")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+929184c99c926357f31dfa422ab0a3f49e3a1625")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77f8379c10a28100af65f6f2aff909e4e81bf0a5")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartHome.Business")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartHome.Business")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -10,6 +10,35 @@
 </div>
 
 <div class="container">
+    
+    <div class="row text-center mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-primary shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h5 class="card-title opacity-75"><i class="bi bi-cpu"></i> Toplam Cihaz</h5>
+                    <h2 class="display-5 fw-bold mb-0">@ViewBag.TotalDevices</h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-success shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h5 class="card-title opacity-75"><i class="bi bi-lightning-charge"></i> Açık Cihazlar</h5>
+                    <h2 class="display-5 fw-bold mb-0">@ViewBag.ActiveDevices</h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-danger shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h5 class="card-title opacity-75"><i class="bi bi-wifi-off"></i> Çevrimdışı</h5>
+                    <h2 class="display-5 fw-bold mb-0">@ViewBag.OfflineDevices</h2>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card shadow-sm">
         <div class="card-body">
             <table class="table table-striped table-hover align-middle">
@@ -29,14 +58,21 @@
                             <td><strong>#@item.DeviceId</strong></td>
                             <td>@item.DeviceName</td>
                             <td>
-                                @if (item.IsActive == true)
-                                {
-                                    <span class="badge bg-success px-3 py-2">AÇIK</span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-danger px-3 py-2">KAPALI</span>
-                                }
+                                <form asp-action="ToggleDevice" method="post">
+                                    <input type="hidden" name="id" value="@item.DeviceId" />
+                                    @if (item.IsActive == true)
+                                    {
+                                        <button type="submit" class="btn btn-success btn-sm w-100 shadow-sm">
+                                            <i class="bi bi-power"></i> AÇIK
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-outline-danger btn-sm w-100 shadow-sm">
+                                            <i class="bi bi-power"></i> KAPALI
+                                        </button>
+                                    }
+                                </form>
                             </td>
                             <td>
                                 @if (item.CurrentValue != null)
