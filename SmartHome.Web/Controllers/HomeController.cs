@@ -69,26 +69,26 @@ public class HomeController : Controller
         {
             using var command = connection.CreateCommand();
             command.CommandText = "sp_ActivateNightMode";
-            command.CommandType = CommandType.StoredProcedure; // İşte düzeltilen yer
+            command.CommandType = CommandType.StoredProcedure; 
 
-            // OUT parametresini tanımlıyoruz
+            
             var outputParam = command.CreateParameter();
             outputParam.ParameterName = "p_StatusMessage";
-            outputParam.DbType = DbType.String; // İşte düzeltilen yer
-            outputParam.Direction = ParameterDirection.Output; // İşte düzeltilen yer
+            outputParam.DbType = DbType.String; 
+            outputParam.Direction = ParameterDirection.Output; 
             outputParam.Size = 255;
             
             command.Parameters.Add(outputParam);
 
-            // Prosedürü çalıştır
+            
             await command.ExecuteNonQueryAsync();
 
-            // Veritabanından gelen mesajı kullanıcıya iletmek için TempData'ya al
+            
             TempData["NightModeMessage"] = outputParam.Value?.ToString();
         }
         finally
         {
-            // Bağlantıyı kapatmak kurumsal bir zorunluluktur
+            
             await connection.CloseAsync();
         }
 
