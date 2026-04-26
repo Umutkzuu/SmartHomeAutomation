@@ -2,6 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartHome.Data.Context;
+using System.Data; // Hataları düzelten kritik satır
+using MySqlConnector; // MySQL parametreleri için gerekli
 
 namespace SmartHome.Web.Controllers;
 
@@ -44,15 +46,52 @@ public class HomeController : Controller
     {
         if (status == false)
         {
-            // Kapatma Prosedürü
             await _context.Database.ExecuteSqlRawAsync("CALL sp_TurnOffRoomDevices({0})", roomId);
         }
         else
         {
-            // YENİ: Açma Prosedürü
             await _context.Database.ExecuteSqlRawAsync("CALL sp_TurnOnRoomDevices({0})", roomId);
         }
         
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ActivateNightMode()
+    {
+        // Entity Framework üzerinden ham bağlantıya ulaşıyoruz
+        var connection = _context.Database.GetDbConnection();
+        
+        if (connection.State != ConnectionState.Open)
+            await connection.OpenAsync();
+
+        try
+        {
+            using var command = connection.CreateCommand();
+            command.CommandText = "sp_ActivateNightMode";
+            command.CommandType = CommandType.StoredProcedure; // İşte düzeltilen yer
+
+            // OUT parametresini tanımlıyoruz
+            var outputParam = command.CreateParameter();
+            outputParam.ParameterName = "p_StatusMessage";
+            outputParam.DbType = DbType.String; // İşte düzeltilen yer
+            outputParam.Direction = ParameterDirection.Output; // İşte düzeltilen yer
+            outputParam.Size = 255;
+            
+            command.Parameters.Add(outputParam);
+
+            // Prosedürü çalıştır
+            await command.ExecuteNonQueryAsync();
+
+            // Veritabanından gelen mesajı kullanıcıya iletmek için TempData'ya al
+            TempData["NightModeMessage"] = outputParam.Value?.ToString();
+        }
+        finally
+        {
+            // Bağlantıyı kapatmak kurumsal bir zorunluluktur
+            await connection.CloseAsync();
+        }
+
         return RedirectToAction(nameof(Index));
     }
 

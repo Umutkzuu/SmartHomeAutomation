@@ -11,6 +11,24 @@
 
 <div class="container">
     
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            @if (TempData["NightModeMessage"] != null)
+            {
+                <div class="alert alert-dark shadow-sm mb-0 d-inline-block" role="alert">
+                    <i class="bi bi-moon-stars-fill text-warning"></i> 
+                    <strong>Sistem Mesajı:</strong> @TempData["NightModeMessage"]
+                </div>
+            }
+        </div>
+        
+        <form asp-action="ActivateNightMode" method="post">
+            <button type="submit" class="btn btn-dark btn-lg shadow">
+                <i class="bi bi-moon-stars"></i> Gece Modunu Başlat
+            </button>
+        </form>
+    </div>
+
     <div class="row text-center mb-4">
         <div class="col-md-4 mb-3">
             <div class="card text-white bg-primary shadow-sm border-0 h-100">

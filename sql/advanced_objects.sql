@@ -67,3 +67,45 @@ BEGIN
 END //
 
 DELIMITER ;
+
+
+DELIMITER //
+
+
+CREATE PROCEDURE sp_ActivateNightMode(OUT p_StatusMessage VARCHAR(255))
+BEGIN
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SET p_StatusMessage = 'HATA: Gece modu aktifleştirilirken veritabanı hatası oluştu. İşlemler iptal edildi.';
+    END;
+
+    
+    START TRANSACTION;
+
+    
+    UPDATE DEVICES d
+    JOIN DEVICE_CATEGORIES c ON d.CategoryID = c.CategoryID
+    SET d.IsActive = FALSE
+    WHERE c.CategoryName IN ('Aydınlatma', 'Eğlence Sistemi') AND d.IsActive = TRUE;
+
+    
+    UPDATE DEVICES d
+    JOIN DEVICE_CATEGORIES c ON d.CategoryID = c.CategoryID
+    SET d.IsActive = TRUE
+    WHERE c.CategoryName IN ('Güvenlik Kamerası', 'Kilit Sistemi') AND d.IsActive = FALSE;
+
+    
+    UPDATE DEVICES d
+    JOIN DEVICE_CATEGORIES c ON d.CategoryID = c.CategoryID
+    SET d.CurrentValue = 18.00
+    WHERE c.CategoryName = 'Isıtma' AND d.IsActive = TRUE;
+
+    
+    COMMIT;
+    SET p_StatusMessage = 'BAŞARILI: Gece modu aktif. Işıklar kapandı, kilitler devreye girdi, ısıtma optimize edildi.';
+
+END //
+
+DELIMITER ;
