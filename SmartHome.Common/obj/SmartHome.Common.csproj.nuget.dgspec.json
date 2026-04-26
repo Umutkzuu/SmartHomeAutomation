@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Umut\\Yazılım\\SmartHomeAutomation\\SmartHome.Common\\SmartHome.Common.csproj": {}
+    "/Users/umut/Desktop/SmartHomeAutomation/SmartHome.Common/SmartHome.Common.csproj": {}
   },
   "projects": {
-    "D:\\Umut\\Yazılım\\SmartHomeAutomation\\SmartHome.Common\\SmartHome.Common.csproj": {
+    "/Users/umut/Desktop/SmartHomeAutomation/SmartHome.Common/SmartHome.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Umut\\Yazılım\\SmartHomeAutomation\\SmartHome.Common\\SmartHome.Common.csproj",
+        "projectUniqueName": "/Users/umut/Desktop/SmartHomeAutomation/SmartHome.Common/SmartHome.Common.csproj",
         "projectName": "SmartHome.Common",
-        "projectPath": "D:\\Umut\\Yazılım\\SmartHomeAutomation\\SmartHome.Common\\SmartHome.Common.csproj",
-        "packagesPath": "C:\\Users\\Umut Kuzu\\.nuget\\packages\\",
-        "outputPath": "D:\\Umut\\Yazılım\\SmartHomeAutomation\\SmartHome.Common\\obj\\",
+        "projectPath": "/Users/umut/Desktop/SmartHomeAutomation/SmartHome.Common/SmartHome.Common.csproj",
+        "packagesPath": "/Users/umut/.nuget/packages/",
+        "outputPath": "/Users/umut/Desktop/SmartHomeAutomation/SmartHome.Common/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Umut Kuzu\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/umut/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.103/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
