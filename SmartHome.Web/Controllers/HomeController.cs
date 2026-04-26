@@ -2,8 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartHome.Data.Context;
-using System.Data; // Hataları düzelten kritik satır
-using MySqlConnector; // MySQL parametreleri için gerekli
+using System.Data;
+using MySqlConnector;
 
 namespace SmartHome.Web.Controllers;
 
@@ -59,7 +59,6 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> ActivateNightMode()
     {
-        // Entity Framework üzerinden ham bağlantıya ulaşıyoruz
         var connection = _context.Database.GetDbConnection();
         
         if (connection.State != ConnectionState.Open)
