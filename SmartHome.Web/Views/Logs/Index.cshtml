@@ -1,0 +1,52 @@
+@model IEnumerable<SmartHome.Data.Entities.DeviceLog>
+
+@{
+    ViewData["Title"] = "Sistem Logları";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-dark">📜 Sistem Log Geçmişi</h1>
+    <p class="lead">Veritabanı tetikleyicisi (Trigger) tarafından anlık kaydedilen cihaz hareketleri.</p>
+</div>
+
+<div class="container">
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">Log ID</th>
+                        <th>Cihaz ID</th>
+                        <th>İşlem Türü</th>
+                        <th>Eski Değer</th>
+                        <th>Yeni Değer</th>
+                        <th class="pe-4">Tarih / Saat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var log in Model)
+                    {
+                        <tr>
+                            <td class="ps-4 fw-bold">#@log.LogId</td>
+                            <td>@log.DeviceId</td>
+                            <td>
+                                <span class="badge @(log.ActionType == "Açıldı" ? "bg-success" : log.ActionType == "Kapandı" ? "bg-danger" : "bg-warning") px-2 py-1">
+                                    @log.ActionType
+                                </span>
+                            </td>
+                            <td class="text-muted">@log.OldValue</td>
+                            <td class="fw-bold text-primary">@log.NewValue</td>
+                            <td class="pe-4 text-secondary">@log.Timestamp</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary">
+            <i class="bi bi-arrow-left"></i> Kontrol Paneline Dön
+        </a>
+    </div>
+</div>

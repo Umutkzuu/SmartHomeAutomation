@@ -110,3 +110,24 @@ END //
 
 DELIMITER ;
 
+
+CREATE OR REPLACE VIEW vw_RoomDeviceSummary AS
+SELECT 
+    r.RoomName,
+    COUNT(d.DeviceID) AS TotalDevices,
+    SUM(CASE WHEN d.IsActive = TRUE THEN 1 ELSE 0 END) AS ActiveDevices
+FROM ROOMS r
+LEFT JOIN DEVICES d ON r.RoomID = d.RoomID
+GROUP BY r.RoomName;
+
+
+DELIMITER //
+
+CREATE TRIGGER trg_BeforeUserInsert
+BEFORE INSERT ON USERS
+FOR EACH ROW
+BEGIN
+    SET NEW.Email = LOWER(NEW.Email);
+END //
+
+DELIMITER ;
